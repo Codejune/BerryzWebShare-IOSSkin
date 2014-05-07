@@ -1,0 +1,87 @@
+﻿<!doctype html>
+<html>
+    <head>
+	<script language="javascript" type="text/javascript" src="/$skin/common.js?action=SkinFile"></script>
+<link rel="shortcut icon" href="/$skin/startup.ico?action=SkinFile">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+<link rel="apple-touch-icon" href="/$skin/startup.png?action=SkinFile" />
+        <meta charset="UTF-8" />
+        <title>$server_addr:$server_port</title>
+        <style type="text/css" media="screen">@import "/$skin/jqtouch/jqtouch.min.css?action=SkinFile";</style>
+        <style type="text/css" media="screen">@import "/$skin/themes/apple/theme.min.css?action=SkinFile";</style>
+        	<script src="/$skin/themes/img/common.js?action=SkinFile"></script>
+    </head>
+    <body>
+	#if( $upload_path )
+	<div style="visibility:hidden">
+		<form method="GET" action="." name="MkdirForm">
+			<input type="hidden" name="action" value="MakeDirectory">
+			<input type="hidden" name="name">
+		</form>
+	</div>
+	#end
+
+        <div id="home" class="current">
+            <div class="toolbar">
+               <h1 class="myhome"><a href="http://$server_addr">Web Storage</a></h1>
+				#if( $display_upper )
+				<a class="back" href="..">Back</a>
+				#end
+				#if( $current_login_id )
+				<a class="button" id="infoButton"  href='.?action=Logout'>$current_login_id</a>
+				#else
+                <a class="button slideup" id="infoButton" href=".?action=Login">로그인</a>
+				#end
+</div>
+            <ul class="rounded">
+       #foreach( $files )
+                <li class="arrow"><a href="$link">$name</a>
+                 <small class="counter">$size</small></li>
+              #end
+            </ul>
+            <!-- 따로 링크는 이곳에서 하세요 :D
+            <h2>External Links</h2>
+            <ul class="rounded">
+                <li class="forward"><a href="http://" target="_blank">link1</a></li>
+                <li class="forward"><a href="http://" target="_blank">link2</a></li>
+                <li class="forward"><a href="http://" target="_blank">link3</a></li>
+            </ul>-->
+            <ul class="individual">
+                <li>
+			#if( $upload_path )
+				<a href='#upload' onClick="window.open('/$skin/upload_frame.html?action=SkinFile#$upload_path*$skin','_blank','width=750,height=200,toolbar=no,status=no,resizable=no');">
+					업로드</a>
+				#else
+					<font style='color:#aaaaaa;'>업로드</font>
+				#end
+</li>
+                
+                <li>
+                #if( $upload_path )
+				<!--<a href='#mkdir' onClick="onMkdir()">-->
+				 <a href="javascript:;" onclick="onMkdir()">
+					새 폴더</a>
+				#else
+					<font style='color:#aaaaaa;'>새 폴더</font>
+				#end
+                </li>
+            </ul>
+            <div class="info">
+
+            #if( $files )
+			현재 폴더 크기: $total_size byte 
+	    <br>	
+	    #if( $free_space )
+			디스크 여유 공간:$free_space byte
+            <br>
+            <b>IPFuse Codejune's Github</b> : <a href="https://github.com/codejune/" target="_blank">https://github.com/codejune/</a><br>
+                        #if ( $version )
+                프로그램 버전 : $version
+			#end
+		#end
+	#end 
+</div>
+            </div>
+        </div>
+    </body>
+</html>
